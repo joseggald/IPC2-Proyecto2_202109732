@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listaEmpresas>
+	<empresa id="1">
+		<nombre>Empresa 1</nombre>
+		<abreviatura>E1</abreviatura>
+		<listaPuntosAtencion>
+			<puntoAtencion id="P1E1">
+				<nombre>Punto 1 E1</nombre>
+				<direccion>Guatemala</direccion>
+				<listaEscritorios>
+					<escritorio id="E1P1E1">
+						<identificacion>Escritorio 1 P1E1</identificacion>
+						<encargado> Juan Perez </encargado>
+					</escritorio>
+					<escritorio id="E1P1E1">
+						<identificacion>Escritorio 2 P1E1</identificacion>
+						<encargado> Juan Sosa </encargado>
+					</escritorio>
+					<escritorio id="E3P1E1">
+						<identificacion>Escritorio 3 E1</identificacion>
+						<encargado> Alexa Perez </encargado>
+					</escritorio>
+				</listaEscritorios>
+			</puntoAtencion>
+		</listaPuntosAtencion>
+		<listaTransacciones>
+			<transaccion id="T1E1">
+				<nombre>Transaccion 1 E1 </nombre>
+				<tiempoAtencion> 50 </tiempoAtencion>
+			</transaccion>
+			<transaccion id="T2E2">
+				<nombre>Transaccion 2 E1</nombre>
+				<tiempoAtencion> 5 </tiempoAtencion>
+			</transaccion>
+		</listaTransacciones>
+	</empresa>
+	<empresa id="2">
+		<nombre>Empresa 2</nombre>
+		<abreviatura>E1</abreviatura>
+		<listaPuntosAtencion>
+			<puntoAtencion id="P1E2">
+				<nombre>Punto 1 E1</nombre>
+				<direccion>Guatemala</direccion>
+				<listaEscritorios>
+					<escritorio id="E1P1E2">
+						<identificacion>Escritorio 1 P1E1</identificacion>
+						<encargado> Juan Perez </encargado>
+					</escritorio>
+					<escritorio id="E1P1E2">
+						<identificacion>Escritorio 2 P1E1</identificacion>
+						<encargado> Juan Sosa </encargado>
+					</escritorio>
+					<escritorio id="E3P1E2">
+						<identificacion>Escritorio 3 E1</identificacion>
+						<encargado> Alexa Perez </encargado>
+					</escritorio>
+				</listaEscritorios>
+			</puntoAtencion>
+		</listaPuntosAtencion>
+		<listaTransacciones>
+			<transaccion id="T1E1">
+				<nombre>Transaccion 1 E1 </nombre>
+				<tiempoAtencion> 50 </tiempoAtencion>
+			</transaccion>
+			<transaccion id="T2E2">
+				<nombre>Transaccion 2 E1</nombre>
+				<tiempoAtencion> 5 </tiempoAtencion>
+			</transaccion>
+		</listaTransacciones>
+	</empresa>
+</listaEmpresas>
