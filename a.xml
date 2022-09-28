@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaEmpresas>
-	<empresa id="1">
+	<empresa id="E1">
 		<nombre>Empresa 1</nombre>
 		<abreviatura>E1</abreviatura>
 		<listaPuntosAtencion>
@@ -12,7 +12,7 @@
 						<identificacion>Escritorio 1 P1E1</identificacion>
 						<encargado> Juan Perez </encargado>
 					</escritorio>
-					<escritorio id="E1P1E1">
+					<escritorio id="E2P1E1">
 						<identificacion>Escritorio 2 P1E1</identificacion>
 						<encargado> Juan Sosa </encargado>
 					</escritorio>
@@ -28,13 +28,13 @@
 				<nombre>Transaccion 1 E1 </nombre>
 				<tiempoAtencion> 50 </tiempoAtencion>
 			</transaccion>
-			<transaccion id="T2E2">
+			<transaccion id="T2E1">
 				<nombre>Transaccion 2 E1</nombre>
 				<tiempoAtencion> 5 </tiempoAtencion>
 			</transaccion>
 		</listaTransacciones>
 	</empresa>
-	<empresa id="2">
+	<empresa id="E2">
 		<nombre>Empresa 2</nombre>
 		<abreviatura>E1</abreviatura>
 		<listaPuntosAtencion>
@@ -44,21 +44,21 @@
 				<listaEscritorios>
 					<escritorio id="E1P1E2">
 						<identificacion>Escritorio 1 P1E1</identificacion>
-						<encargado> Juan Perez </encargado>
+						<encargado> Jose Perez </encargado>
 					</escritorio>
-					<escritorio id="E1P1E2">
+					<escritorio id="E2P1E2">
 						<identificacion>Escritorio 2 P1E1</identificacion>
-						<encargado> Juan Sosa </encargado>
+						<encargado> Maynor Sosa </encargado>
 					</escritorio>
 					<escritorio id="E3P1E2">
 						<identificacion>Escritorio 3 E1</identificacion>
-						<encargado> Alexa Perez </encargado>
+						<encargado> Natalia Perez </encargado>
 					</escritorio>
 				</listaEscritorios>
 			</puntoAtencion>
 		</listaPuntosAtencion>
 		<listaTransacciones>
-			<transaccion id="T1E1">
+			<transaccion id="T1E2">
 				<nombre>Transaccion 1 E1 </nombre>
 				<tiempoAtencion> 50 </tiempoAtencion>
 			</transaccion>

@@ -1,5 +1,4 @@
 from Nodo import *
-
 class Lista_simple(): 
     def __init__(self):
         self.cabeza = None
@@ -42,9 +41,6 @@ class Lista_simple():
             temp = temp.siguiente
         return temp.dato
 
-    # Método para imprimir la lista de nodos
-    def imprimir_lista(self,llave):
-        nodo = self.cabeza
-        while nodo != None:
-            print( getattr(nodo.dato, llave)  ," => ")
-            nodo = nodo.siguiente
+    
+
+        

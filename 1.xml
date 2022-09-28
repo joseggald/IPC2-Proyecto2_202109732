@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<listadoInicial>
+<configInicial id="ci-001" idEmpresa="E1" idPunto="P1E1">
+<escritoriosActivos>
+<escritorio idEscritorio="E1P1E1"></escritorio>
+<escritorio idEscritorio="E2P1E1"></escritorio>
+</escritoriosActivos>
+<listadoClientes>
+<cliente dpi="2002001">
+<nombre>Manuel Asturias</nombre>
+<listadoTransacciones>
+<transaccion idTransaccion="T1E1" cantidad="500"></transaccion>
+<transaccion idTransaccion="T2E1" cantidad="250"></transaccion>
+</listadoTransacciones>
+</cliente>
+<cliente dpi="2002002">
+<nombre>Jose Galdámez</nombre>
+<listadoTransacciones>
+<transaccion idTransaccion="T1E1" cantidad="700"></transaccion>
+</listadoTransacciones>
+</cliente>
+</listadoClientes>
+</configInicial>
+</listadoInicial>
