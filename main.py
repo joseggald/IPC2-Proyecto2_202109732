@@ -1,7 +1,4 @@
 import os
-from re import L
-from telnetlib import PRAGMA_HEARTBEAT
-from webbrowser import get
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from time import sleep
@@ -10,17 +7,13 @@ from claseEmpresa import Empresa
 from claseEscritorios import Escritorio
 from clasePuntoAtencion import PuntoAtencion
 from claseTransaccion import Transaccion
-listaEscritorios=Lista_simple()
+
 opConfig=0
 fin=100
-
-escritoriosData=[]
-puntosAtData=[]
-empresaData=[]
-transaccionData=[]
-
-
-prueba=[]
+empresaData=Lista_simple()
+empresaLista=[]
+configData=Lista_simple()
+configLista=[]
 while fin==100:
     print("***** PROYECTO 2: LABORATORIO DE IPC 2 *****")
     print("")
@@ -52,76 +45,63 @@ while fin==100:
                 sleep(2)
                 print("*** SISTEMA LIMPIO ***")
             if opConfig==2:
+                estInicial=False
                 os.system ("cls")
                 print("***** 2. Cargar archivo de configuración del sistema *****")
                 parser = ET.XMLParser(encoding="utf-8")
                 tree = ET.parse('a.xml',parser=parser)
                 root = tree.getroot()
                 for empresa in root:
-                    puntosAtData.clear()
-                    escritoriosData.clear()
-                    transaccionData.clear()
-                    print("***********************************************************")
                     idEmpresa = empresa.attrib['id']
                     print(idEmpresa)
-                    for contenido in empresa:
+                    escritoriosData=Lista_simple()
+                    escritoriosLista=[]
+                    puntosAtData=Lista_simple()
+                    puntosAtLista=[]
+                    transaccionData=Lista_simple()
+                    clientesData=Lista_simple()
+                    transaccionLista=[]  
+                    clientesLista=[]                  
+                    for contenido in empresa:  
                         if contenido.tag == 'nombre':
                             NombreEmpresa = contenido.text
-                            print(NombreEmpresa)
                         if contenido.tag == 'abreviatura':
-                            AbreviaturaEmpresa = contenido.text
-                            print(AbreviaturaEmpresa)  
-                        for listaPA in contenido:
+                            AbreviaturaEmpresa = contenido.text                 
+                        for listaPA in contenido:  
                             if listaPA.tag == 'puntoAtencion': 
-                                idPA = listaPA.attrib['id']
-                                print(idPA)
+                                idPA = listaPA.attrib['id']  
                                 for contPA in listaPA:
                                     if contPA.tag == 'nombre':
                                         nombrePA=contPA.text
-                                        print(nombrePA)
                                     if contPA.tag == 'direccion':
                                         direccionPA=contPA.text
-                                        print(direccionPA)
                                     for listaEscritorio in contPA:
                                         if listaEscritorio.tag == 'escritorio':
                                             idEscritorio = listaEscritorio.attrib['id']
-                                            print(idEscritorio)
                                             for escritorios in listaEscritorio:
                                                 if escritorios.tag == 'identificacion':
                                                     identificacion=escritorios.text
-                                                    print(identificacion)
                                                 if escritorios.tag == 'encargado':
-                                                    encargado=escritorios.text
-                                                    print(encargado)     
-                                            
-                                            escritoriosData.append(Escritorio(idEscritorio, identificacion,encargado))
-                                prueba.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData))            
-                                puntosAtData.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData))                       
+                                                    encargado=escritorios.text   
+                                            escritoriosData.agregar_al_final(Escritorio(idEscritorio, identificacion,encargado,estInicial))
+                                            escritoriosLista.append(Escritorio(idEscritorio, identificacion,encargado,estInicial))
+                                puntosAtData.agregar_al_final(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData))   
+                                puntosAtLista.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosLista))                                                                       
                         for listaTS in contenido:
                             if listaTS.tag == 'transaccion': 
                                 idTS = listaTS.attrib['id']
-                                print(idTS)
                                 for contTS in listaTS:
                                     if contTS.tag == 'nombre':
                                         nombreTS=contTS.text
-                                        print(nombreTS)
                                     if contTS.tag == 'tiempoAtencion':
                                         tiempoAtencion=contTS.text
-                                        print(tiempoAtencion)
-                                transaccionData.append(Transaccion(idTS,nombreTS,tiempoAtencion))
-                    empresaData.append(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtData,transaccionData))
-                
+                                transaccionData.agregar_al_final(Transaccion(idTS,nombreTS,tiempoAtencion))
+                                transaccionLista.append(Transaccion(idTS,nombreTS,tiempoAtencion))
+                    empresaData.agregar_al_final(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtData,transaccionData,clientesData))
+                    empresaLista.append(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtLista,transaccionLista,clientesLista))
 
-                print("********************* DATA OBTENIDA ***************************")
-                """
-                print(str(len(empresaData)))
-                for i in range(len(empresaData)):
-                    print(empresaData[i].nombre)
-                    for k in range(len(empresaData[i].puntosAtencion)):
-                        for j in range(len(empresaData[i].puntosAtencion[k].escritorios)):
-                            print(empresaData[i].puntosAtencion[k].escritorios[j].idEsc)
-                """   
-                sleep(5)                           
+                print("********************* DATA OBTENIDA ***************************")  
+                sleep(10)                                     
             if opConfig==3:
                 os.system ("cls")
                 print("***** 3. Crear nueva empresa *****")
@@ -132,29 +112,43 @@ while fin==100:
                 parser = ET.XMLParser(encoding="utf-8")
                 tree = ET.parse('1.xml',parser=parser)
                 root = tree.getroot()
+                
+                
                 for config in root:
                     idConfig = config.attrib['id']
+                    idEmpresa = config.attrib['idEmpresa']
+                    idPunto = config.attrib['idPunto']
+                    clientesLista=[] 
+                    clientesData=Lista_simple()
+                    print(idPunto)
+                    print(idEmpresa)
                     print(idConfig)
-                    for escriActi in config:
-                        for listaEscri in escriActi:
-                            if listaEscri.tag == 'escritorio':
-                                idEscri=listaEscri.attrib['idEscritorio']
-                                print(idEscri)
-                    for clientes in config:
-                        for listaClientes in clientes:
-                            if listaClientes.tag == 'cliente':
-                                idClientes=listaClientes.attrib['dpi']
-                                print(idClientes)
-                                for datos in listaClientes:
-                                    if datos.tag == 'nombre':
-                                        nomCliente=datos.text
-                                        print(nomCliente)
-                                    for trans in datos:
-                                        if trans.tag=='transaccion':
-                                            idTrans=trans.attrib['idTransaccion']
-                                            print(idTrans)
-                
-                sleep(10)
+                    for i in range(len(empresaLista)):
+                        if idEmpresa==empresaLista[i].idEmpresa:
+                            print(empresaLista[i].nombre)
+                            for j in range(len(empresaLista[i].puntosAtencion)):
+                                print(empresaLista[i].puntosAtencion[j].idPuntoAtencion)
+                                print(idPunto)
+                                if idPunto==empresaLista[i].puntosAtencion[j].idPuntoAtencion:
+                                    for escriActi in config:
+                                        for listaEscri in escriActi:
+                                            if listaEscri.tag == 'escritorio':
+                                                idEscri=listaEscri.attrib['idEscritorio']
+                                                print(idEscri)
+                                    for clientes in config:
+                                        for listaClientes in clientes:
+                                            if listaClientes.tag == 'cliente':
+                                                idClientes=listaClientes.attrib['dpi']
+                                                print(idClientes)
+                                                for datos in listaClientes:
+                                                    if datos.tag == 'nombre':
+                                                        nomCliente=datos.text
+                                                        print(nomCliente)
+                                                    for trans in datos:
+                                                        if trans.tag=='transaccion':
+                                                            idTrans=trans.attrib['idTransaccion']
+                                                            print(idTrans)      
+                sleep(10)                   
             if opConfig==5:
                 pass
             if opConfig>5 or opConfig==0:

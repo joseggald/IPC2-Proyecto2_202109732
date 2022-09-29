@@ -1,5 +1,3 @@
-from ListaSimple import Lista_simple
-
 class PuntoAtencion():
     def __init__(self, idPuntoAtencion, nombre, direccion, escritorios):
         self.idPuntoAtencion=idPuntoAtencion

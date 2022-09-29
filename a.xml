@@ -36,10 +36,10 @@
 	</empresa>
 	<empresa id="E2">
 		<nombre>Empresa 2</nombre>
-		<abreviatura>E1</abreviatura>
+		<abreviatura>E2</abreviatura>
 		<listaPuntosAtencion>
 			<puntoAtencion id="P1E2">
-				<nombre>Punto 1 E1</nombre>
+				<nombre>Punto 1 E2</nombre>
 				<direccion>Guatemala</direccion>
 				<listaEscritorios>
 					<escritorio id="E1P1E2">
@@ -59,11 +59,11 @@
 		</listaPuntosAtencion>
 		<listaTransacciones>
 			<transaccion id="T1E2">
-				<nombre>Transaccion 1 E1 </nombre>
+				<nombre>Transaccion 1 E2 </nombre>
 				<tiempoAtencion> 50 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T2E2">
-				<nombre>Transaccion 2 E1</nombre>
+				<nombre>Transaccion 2 E2</nombre>
 				<tiempoAtencion> 5 </tiempoAtencion>
 			</transaccion>
 		</listaTransacciones>
