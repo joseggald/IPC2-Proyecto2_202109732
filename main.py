@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from time import sleep
 from ListaSimple import Lista_simple
+from claseClientes import Clientes
 from claseEmpresa import Empresa
 from claseEscritorios import Escritorio
 from clasePuntoAtencion import PuntoAtencion
@@ -101,7 +102,7 @@ while fin==100:
                     empresaLista.append(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtLista,transaccionLista,clientesLista))
 
                 print("********************* DATA OBTENIDA ***************************")  
-                sleep(10)                                     
+                sleep(5)                                     
             if opConfig==3:
                 os.system ("cls")
                 print("***** 3. Crear nueva empresa *****")
@@ -119,22 +120,25 @@ while fin==100:
                     idEmpresa = config.attrib['idEmpresa']
                     idPunto = config.attrib['idPunto']
                     clientesLista=[] 
+                    transaccionLista=[]
                     clientesData=Lista_simple()
+                    transaccionData=Lista_simple()
+                    print(idConfig)
                     print(idPunto)
                     print(idEmpresa)
-                    print(idConfig)
                     for i in range(len(empresaLista)):
                         if idEmpresa==empresaLista[i].idEmpresa:
                             print(empresaLista[i].nombre)
                             for j in range(len(empresaLista[i].puntosAtencion)):
-                                print(empresaLista[i].puntosAtencion[j].idPuntoAtencion)
-                                print(idPunto)
                                 if idPunto==empresaLista[i].puntosAtencion[j].idPuntoAtencion:
+                                    print(empresaLista[i].puntosAtencion[j].nombre)
                                     for escriActi in config:
                                         for listaEscri in escriActi:
                                             if listaEscri.tag == 'escritorio':
                                                 idEscri=listaEscri.attrib['idEscritorio']
-                                                print(idEscri)
+                                                for k in range(len(empresaLista[i].puntosAtencion[j].escritorios)):
+                                                    if idEscri==empresaLista[i].puntosAtencion[j].escritorios[k].idEsc:
+                                                        empresaLista[i].puntosAtencion[j].escritorios[k].estado=True
                                     for clientes in config:
                                         for listaClientes in clientes:
                                             if listaClientes.tag == 'cliente':
@@ -147,8 +151,19 @@ while fin==100:
                                                     for trans in datos:
                                                         if trans.tag=='transaccion':
                                                             idTrans=trans.attrib['idTransaccion']
-                                                            print(idTrans)      
-                sleep(10)                   
+                                                            cantidadTrans=trans.attrib['cantidad']
+                                                            for a in range(len(empresaLista[i].transacciones)):
+                                                                dato=empresaLista[i].transacciones[a]
+                                                                if empresaLista[i].transacciones[a].idTrans==idTrans:
+                                                                    print(idTrans)
+                                                                    transaccionLista.append(Transaccion(dato.idTrans,dato.nombre,dato.tiempo)) 
+                                                clientesLista.append(Clientes(idClientes,nomCliente,transaccionLista,cantidadTrans))
+                            empresaLista[i].clientes=clientesLista
+                    for i in range(len(empresaLista)):
+                        for j in range(len(empresaLista[i].puntosAtencion)):
+                            for k in range(len(empresaLista[i].puntosAtencion[j].escritorios)):
+                                print("Nombre Empresa: "+ empresaLista[i].nombre+"  "+empresaLista[i].puntosAtencion[j].nombre +"  Escritorio: "+str(empresaLista[i].puntosAtencion[j].escritorios[k].estado))   
+                    sleep(10)
             if opConfig==5:
                 pass
             if opConfig>5 or opConfig==0:
