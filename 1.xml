@@ -21,4 +21,23 @@
 </cliente>
 </listadoClientes>
 </configInicial>
+<configInicial id="ci-002" idEmpresa="E2" idPunto="P1E2">
+<escritoriosActivos>
+<escritorio idEscritorio="E3P1E2"></escritorio>
+</escritoriosActivos>
+<listadoClientes>
+<cliente dpi="2002001">
+<nombre>Marco Malcom</nombre>
+<listadoTransacciones>
+<transaccion idTransaccion="T2E2" cantidad="100"></transaccion>
+</listadoTransacciones>
+</cliente>
+<cliente dpi="2002002">
+<nombre>Eduardo Gonzalez</nombre>
+<listadoTransacciones>
+<transaccion idTransaccion="T1E2" cantidad="900"></transaccion>
+</listadoTransacciones>
+</cliente>
+</listadoClientes>
+</configInicial>
 </listadoInicial>
