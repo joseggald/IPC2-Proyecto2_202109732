@@ -16,8 +16,9 @@ empresaData=Lista_simple()
 empresaLista=[]
 configData=Lista_simple()
 configLista=[]
-actualSeleccionEmpresa=100
-actualSeleccionPunto=100
+atencionCliente=[]
+actualSeleccionEmpresa=1000
+actualSeleccionPunto=1000
 while fin==100:
     os.system ("cls")
     print("***** PROYECTO 2: LABORATORIO DE IPC 2 *****")
@@ -64,9 +65,7 @@ while fin==100:
                 root = tree.getroot()
                 for empresa in root:
                     idEmpresa = empresa.attrib['id']
-                    print(idEmpresa)
-                    escritoriosData=Lista_simple()
-                    escritoriosLista=[]
+                    
                     puntosAtData=Lista_simple()
                     puntosAtLista=[]
                     transaccionData=Lista_simple()
@@ -78,8 +77,10 @@ while fin==100:
                             NombreEmpresa = contenido.text
                         if contenido.tag == 'abreviatura':
                             AbreviaturaEmpresa = contenido.text                 
-                        for listaPA in contenido:  
+                        for listaPA in contenido:
                             if listaPA.tag == 'puntoAtencion': 
+                                escritoriosData=Lista_simple()
+                                escritoriosLista=[]  
                                 idPA = listaPA.attrib['id']  
                                 for contPA in listaPA:
                                     if contPA.tag == 'nombre':
@@ -96,8 +97,8 @@ while fin==100:
                                                     encargado=escritorios.text   
                                             escritoriosData.agregar_al_final(Escritorio(idEscritorio, identificacion,encargado,estInicial))
                                             escritoriosLista.append(Escritorio(idEscritorio, identificacion,encargado,estInicial))
-                                puntosAtData.agregar_al_final(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData))   
-                                puntosAtLista.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosLista))                                                                       
+                                puntosAtData.agregar_al_final(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData,clientesData))   
+                                puntosAtLista.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosLista, clientesLista))                                                                       
                         for listaTS in contenido:
                             if listaTS.tag == 'transaccion': 
                                 idTS = listaTS.attrib['id']
@@ -108,8 +109,8 @@ while fin==100:
                                         tiempoAtencion=int(contTS.text)
                                 transaccionData.agregar_al_final(Transaccion(idTS,nombreTS,tiempoAtencion))
                                 transaccionLista.append(Transaccion(idTS,nombreTS,tiempoAtencion))
-                    empresaData.agregar_al_final(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtData,transaccionData,clientesData))
-                    empresaLista.append(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtLista,transaccionLista,clientesLista))
+                    empresaData.agregar_al_final(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtData,transaccionData))
+                    empresaLista.append(Empresa(idEmpresa,NombreEmpresa,AbreviaturaEmpresa,puntosAtLista,transaccionLista))
                 print("") 
                 print("Se han obtenido un total de: "+str(len(empresaLista))+" Empresas.")  
                 print("")  
@@ -203,8 +204,7 @@ while fin==100:
                 tree = ET.parse('1.xml',parser=parser)
                 root = tree.getroot()
                 
-                try:
-                
+                try: 
                     for config in root:
                         idConfig = config.attrib['id']
                         idEmpresa = config.attrib['idEmpresa']
@@ -251,9 +251,9 @@ while fin==100:
                                                                         transaccionLista.append(Transaccion(dato.idTrans,dato.nombre,dato.tiempo)) 
                                                                         cantLista.append(cantidadTrans)
                                                     clientesLista.append(Clientes(idClientes,nomCliente,transaccionLista,cantLista))
+                                        empresaLista[i].puntosAtencion[j].clientes=clientesLista
                                     else:
-                                        pass
-                                empresaLista[i].clientes=clientesLista
+                                        pass 
                             else:
                                 pass
                                 
@@ -275,9 +275,7 @@ while fin==100:
                 print("Opcion no valida!")
                 print("Vuelva a intentarlo...")
     if op==2:
-        
-        
-        
+ 
         while(actualSeleccionEmpresa>len(empresaLista)):
             os.system ("cls")
             print("*** Selección de empresa y punto de atención ***")
@@ -319,18 +317,20 @@ while fin==100:
             print("ID: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[i].idPuntoAtencion)
             print("Nombre: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[i].nombre)
             print("Direccion: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[i].direccion)
-            print("Cantidad de Escritorios: "+str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[i].escritorios)))        
+            print("Cantidad de Escritorios: "+str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[i].escritorios)))  
+            print("Cantidad de Clientes: "+ str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[i].clientes)))      
         print("_________________________________________________")
         print("")   
         print("Digite el el punto de atencion de empresa que desea trabajar:")
         actualSeleccionPunto=int(input())-1
         os.system ("cls")
         print("")
-        print("***** PUNTO DE ATENCION NO. "+str(i+1)+" SELECCIONADO *****") 
+        print("***** PUNTO DE ATENCION NO. "+str(actualSeleccionPunto+1)+" SELECCIONADO *****") 
         print("ID: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].idPuntoAtencion)
         print("Nombre: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].nombre)
         print("Direccion: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].direccion)
         print("Cantidad de Escritorios: "+str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios))) 
+        print("Cantidad de Clientes: "+ str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes)))
         print("")
         sleep(1)
         print("...")
@@ -340,39 +340,96 @@ while fin==100:
         print("*** PROCESO TERMINADO ***")
         sleep(4)
     if op==3:
-        opManejo=0
-        stop=False
-        while(stop!=True):
-            os.system ("cls")
-            print("*** Manejo de puntos de atención ***")
-            print("")
-            print(" 1. Ver estado del punto de atención ")
-            print(" 2. Activar escritorio de servicio ")
-            print(" 3. Desactivar escritorio ")
-            print(" 4. Atender cliente ")
-            print(" 5. Solicitud de atención ")
-            print(" 6. Simular actividad del punto de atención ")
-            print(" 7. Regresar Menu Principal")
-            opManejo=int(input())
-            if opManejo>7 or opManejo<=0:
-                print("Opcion no valida!")
-                print("Vuelva a intentarlo...")
-            else:
-                stop=True
-        if opManejo==1:
-            pass 
-        if opManejo==2:
-            pass 
-        if opManejo==3:
-            pass 
-        if opManejo==4:
-            pass 
-        if opManejo==5:
-            pass 
-        if opManejo==6:
-            pass 
-        if opManejo==7:
-            pass 
+        if actualSeleccionEmpresa==1000 and actualSeleccionPunto==1000:
+            print("*** ERROR ***")
+            print("NO SE HA SELECCIONADO NINGUNA EMPRESA")
+            sleep(5)
+        else:
+            opManejo=0
+            stop=False
+            while(stop!=True):
+                os.system ("cls")
+                print("*** Manejo de puntos de atención ***")
+                print("")
+                print(" 1. Ver estado del punto de atención ")
+                print(" 2. Activar escritorio de servicio ")
+                print(" 3. Desactivar escritorio ")
+                print(" 4. Atender cliente ")
+                print(" 5. Solicitud de atención ")
+                print(" 6. Simular actividad del punto de atención ")
+                print(" 7. Regresar Menu Principal")
+                opManejo=int(input())
+                if opManejo>7 or opManejo<=0:
+                    print("Opcion no valida!")
+                    print("Vuelva a intentarlo...")
+                else:
+                    stop=True
+            if opManejo==1:
+                os.system ("cls")
+                print("****** Ver estado del punto de atención ******")
+                print("__________________________________________________________")
+                print(" ")
+                print("********************************************************")
+                print(" ")
+                print(" EMPRESA "+str(actualSeleccionEmpresa+1)+" ")
+                print("ID: "+empresaLista[actualSeleccionEmpresa].idEmpresa)
+                print("Nombre: "+empresaLista[actualSeleccionEmpresa].nombre)
+                print(" ")
+                print(" PUNTO DE ATENCION NO. "+str(actualSeleccionPunto+1)+" ") 
+                print("ID: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].idPuntoAtencion)
+                print("Nombre: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].nombre)
+                print("Cantidad de Clientes: "+ str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes)))
+                print("Tiempo: ")
+                print(" ")
+                print("********************************************************")
+                print("__________________________________________________________")
+                print(" ")
+                print("***** ESCRITORIOS ACTIVOS *****")
+                escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
+                for i in range(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios)):
+                    if escritorio[i].estado==True:
+                        print(" ")
+                        print("Id:"+escritorio[i].idEsc)
+                        print("Identificacion:"+escritorio[i].identificacion)
+                        print("Encargado:"+escritorio[i].encargado)
+                        print(" ")
+                print("__________________________________________________________")
+                print("__________________________________________________________")
+                print(" ")
+                print("***** ESCRITORIOS INACTIVOS *****")
+                escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
+                for i in range(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios)):
+                    if escritorio[i].estado==False:
+                        print(" ")
+                        print("Id:"+escritorio[i].idEsc)
+                        print("Identificacion:"+escritorio[i].identificacion)
+                        print("Encargado:"+escritorio[i].encargado)
+                        print(" ")
+                print("__________________________________________________________")
+                sleep(20)
+                
+            if opManejo==2:
+                os.system ("cls")
+                print("****** Activar escritorio de servicio ******")
+
+            if opManejo==3:
+                os.system ("cls")
+                print("****** Desactivar escritorio ******") 
+            
+            if opManejo==4:
+                os.system ("cls")
+                print("****** Atender cliente ******") 
+                 
+            if opManejo==5:
+                os.system ("cls")
+                print("****** Solicitud de atención ******") 
+                 
+            if opManejo==6:
+                os.system ("cls")
+                print("****** Simular actividad del punto de atención ******") 
+                 
+            if opManejo==7:
+                pass 
 
     if op==4:
         fin=0
