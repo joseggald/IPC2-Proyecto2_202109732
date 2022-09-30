@@ -340,10 +340,40 @@ while fin==100:
         print("*** PROCESO TERMINADO ***")
         sleep(4)
     if op==3:
-        os.system ("cls")
-        print("*** Manejo de puntos de atención ***")
-        print("")
-        
+        opManejo=0
+        stop=False
+        while(stop!=True):
+            os.system ("cls")
+            print("*** Manejo de puntos de atención ***")
+            print("")
+            print(" 1. Ver estado del punto de atención ")
+            print(" 2. Activar escritorio de servicio ")
+            print(" 3. Desactivar escritorio ")
+            print(" 4. Atender cliente ")
+            print(" 5. Solicitud de atención ")
+            print(" 6. Simular actividad del punto de atención ")
+            print(" 7. Regresar Menu Principal")
+            opManejo=int(input())
+            if opManejo>7 or opManejo<=0:
+                print("Opcion no valida!")
+                print("Vuelva a intentarlo...")
+            else:
+                stop=True
+        if opManejo==1:
+            pass 
+        if opManejo==2:
+            pass 
+        if opManejo==3:
+            pass 
+        if opManejo==4:
+            pass 
+        if opManejo==5:
+            pass 
+        if opManejo==6:
+            pass 
+        if opManejo==7:
+            pass 
+
     if op==4:
         fin=0
     if op>4 or op==0:
