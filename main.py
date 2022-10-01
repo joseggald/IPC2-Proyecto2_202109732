@@ -496,6 +496,9 @@ while fin==100:
                
                  
             if opManejo==5:
+                trans=[]
+                cant=[]
+                stop=False
                 os.system ("cls")
                 print("****** Solicitud de atención ******") 
                 print("__________________________________________________________")
@@ -519,18 +522,46 @@ while fin==100:
                 dpiCli=input()
                 print("Nombre: ") 
                 nomCli=input()
-                os.system ("cls")
+                
                 while stop!=True:
+                    os.system ("cls")
                     print("-|-|-|-|-| Seleccion de Transacciones |-|-|-|-|-") 
                     print("__________________________________________________________")
                     print("**** TRANSACCIONES DISPONIBLES ****") 
                     print(" ")
                     for i in range (len(empresaLista[actualSeleccionEmpresa].transacciones)):
                         print(" Transaccion No. "+str(i+1))
-                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
-                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
-                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
+                        print("Id: "+empresaLista[actualSeleccionEmpresa].transacciones[i].idTrans)
+                        print("Nombre: "+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
+                        print("Tiempo estipulado: "+ str(empresaLista[actualSeleccionEmpresa].transacciones[i].tiempo))
                         print(" ")
+                    print(" ")
+                    print("Digite el numero de transacción que hara:")
+                    opTrans=int(input())-1
+                    if opTrans>len(empresaLista[actualSeleccionEmpresa].transacciones):
+                        print("Transaccion no existente!")
+                        print("Vuelva a intentarlo...")
+                    else:
+                        tr=empresaLista[actualSeleccionEmpresa].transacciones[opTrans]
+                        print("Digite la cantidad de dinero que utilizara:")
+                        cant=input()
+                        trans.append(Transaccion(tr.idTrans,tr.nombre,tr.tiempo))
+                        cant.append(cant)
+                        print(" ")
+                        print("Desea hacer otra transaccion? Si=1 o No=0")
+                        opf=int(input())
+                        if opf==1:
+                            pass
+                        if opf==0:
+                            stop=True 
+                    
+
+                empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes.append(Clientes(dpiCli,nomCli,trans,cant))
+                colaCliente.append(Clientes(dpiCli,nomCli,trans,cant))
+                os.system ("cls")
+                print("Cliente en cola!")
+                sleep(10)
+                    
 
 
             if opManejo==6:
