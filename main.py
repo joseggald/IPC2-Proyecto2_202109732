@@ -19,6 +19,7 @@ configLista=[]
 atencionCliente=[]
 actualSeleccionEmpresa=1000
 actualSeleccionPunto=1000
+colaCliente=[]
 while fin==100:
     os.system ("cls")
     print("***** PROYECTO 2: LABORATORIO DE IPC 2 *****")
@@ -60,8 +61,11 @@ while fin==100:
                 estInicial=False
                 os.system ("cls")
                 print("***** 2. Cargar archivo de configuración del sistema *****")
+                print("")
+                print("Escriba el nombre del archivo que se encuentra en la carpeta: ")
+                carga=input()
                 parser = ET.XMLParser(encoding="utf-8")
-                tree = ET.parse('a.xml',parser=parser)
+                tree = ET.parse(carga,parser=parser)
                 root = tree.getroot()
                 for empresa in root:
                     idEmpresa = empresa.attrib['id']
@@ -200,8 +204,10 @@ while fin==100:
             if opConfig==4:
                 os.system ("cls")
                 print("***** 4. Cargar archivo con configuración inicial para la prueba *****")
+                print("Escriba el nombre del archivo que se encuentra en la carpeta: ")
+                carga=input()
                 parser = ET.XMLParser(encoding="utf-8")
-                tree = ET.parse('1.xml',parser=parser)
+                tree = ET.parse(carga,parser=parser)
                 root = tree.getroot()
                 
                 try: 
@@ -338,6 +344,7 @@ while fin==100:
         print("...")
         sleep(1)        
         print("*** PROCESO TERMINADO ***")
+        colaCliente=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes
         sleep(4)
     if op==3:
         if actualSeleccionEmpresa==1000 and actualSeleccionPunto==1000:
@@ -378,7 +385,7 @@ while fin==100:
                 print(" PUNTO DE ATENCION NO. "+str(actualSeleccionPunto+1)+" ") 
                 print("ID: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].idPuntoAtencion)
                 print("Nombre: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].nombre)
-                print("Cantidad de Clientes: "+ str(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes)))
+                print("Cantidad en la cola de Clientes: "+ str(len(colaCliente)))
                 print("Tiempo: ")
                 print(" ")
                 print("********************************************************")
@@ -409,21 +416,123 @@ while fin==100:
                 sleep(20)
                 
             if opManejo==2:
+                inactivos=[]
+                stop=False
                 os.system ("cls")
                 print("****** Activar escritorio de servicio ******")
-
+                print("__________________________________________________________")
+                print(" ")
+                print("***** ESCRITORIOS INACTIVOS *****")
+                escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
+                for i in range(len(escritorio)):
+                    if escritorio[i].estado==False:
+                        print(" ")
+                        print("Id:"+escritorio[i].idEsc)
+                        print("Identificacion:"+escritorio[i].identificacion)
+                        print("Encargado:"+escritorio[i].encargado)
+                        inactivos.append(i)
+                        print(" ")
+                print("__________________________________________________________")
+                print(" ")
+                while(stop!=True):
+                    print("Seleccione el numero de escritorio que desea activar: ")
+                    actiEscri=int(input())-1
+                    
+                    for i in range(len(inactivos)):
+                        if inactivos[i]==actiEscri:
+                            print("Se ha activado el escritorio No. "+ str(actiEscri+1))
+                            print("Id:"+escritorio[actiEscri].idEsc)
+                            print("Identificacion:"+escritorio[actiEscri].identificacion)
+                            print("Encargado:"+escritorio[actiEscri].encargado)
+                            escritorio[actiEscri].estado=True
+                            stop=True
+                            break
+                        else:
+                            pass
+                    if stop==False:
+                        print("ERROR, el escritorio que selecciono no se encuentra en activos o existe.")
+                sleep(10)
             if opManejo==3:
+                activos=[]
+                stop=False
                 os.system ("cls")
                 print("****** Desactivar escritorio ******") 
+                print("__________________________________________________________")
+                print(" ")
+                print("***** ESCRITORIOS ACTIVOS *****")
+                escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
+                for i in range(len(escritorio)):
+                    if escritorio[i].estado==True:
+                        print(" ")
+                        print("Id: "+escritorio[i].idEsc)
+                        print("Identificacion: "+escritorio[i].identificacion)
+                        print("Encargado:"+escritorio[i].encargado)
+                        activos.append(i)
+                        print(" ")
+                print("__________________________________________________________")
+                print(" ")
+                while(stop!=True):
+                    print("Seleccione el numero de escritorio que desea desactivar: ")
+                    actiEscri=int(input())-1
+                    
+                    for i in range(len(activos)):
+                        if activos[i]==actiEscri:
+                            print("Se ha desactivado el escritorio No. "+ str(actiEscri+1))
+                            print("Id: "+escritorio[actiEscri].idEsc)
+                            print("Identificacion: "+escritorio[actiEscri].identificacion)
+                            print("Encargado:"+escritorio[actiEscri].encargado)
+                            escritorio[actiEscri].estado=False
+                            stop=True
+                            break
+                        else:
+                            pass
+                    if stop==False:
+                        print("ERROR, el escritorio que selecciono no se encuentra en inactivos o existe.")
+                sleep(10)
             
             if opManejo==4:
                 os.system ("cls")
                 print("****** Atender cliente ******") 
+               
                  
             if opManejo==5:
                 os.system ("cls")
                 print("****** Solicitud de atención ******") 
-                 
+                print("__________________________________________________________")
+                print(" ")
+                print("********************************************************")
+                print(" ")
+                print(" EMPRESA "+str(actualSeleccionEmpresa+1)+" ")
+                print("ID: "+empresaLista[actualSeleccionEmpresa].idEmpresa)
+                print("Nombre: "+empresaLista[actualSeleccionEmpresa].nombre)
+                print(" ")
+                print(" PUNTO DE ATENCION NO. "+str(actualSeleccionPunto+1)+" ") 
+                print("ID: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].idPuntoAtencion)
+                print("Nombre: "+empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].nombre)
+                print("Cantidad en la cola de Clientes: "+ str(len(colaCliente)))
+                print(" ")
+                print("********************************************************")
+                print("__________________________________________________________")
+                print(" ") 
+                print("-|-|-|-|-| Formulario de Datos de Nuevo Cliente |-|-|-|-|-") 
+                print("DPI: ") 
+                dpiCli=input()
+                print("Nombre: ") 
+                nomCli=input()
+                os.system ("cls")
+                while stop!=True:
+                    print("-|-|-|-|-| Seleccion de Transacciones |-|-|-|-|-") 
+                    print("__________________________________________________________")
+                    print("**** TRANSACCIONES DISPONIBLES ****") 
+                    print(" ")
+                    for i in range (len(empresaLista[actualSeleccionEmpresa].transacciones)):
+                        print(" Transaccion No. "+str(i+1))
+                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
+                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
+                        print("Nombre:"+empresaLista[actualSeleccionEmpresa].transacciones[i].nombre)
+                        print(" ")
+
+
             if opManejo==6:
                 os.system ("cls")
                 print("****** Simular actividad del punto de atención ******") 
