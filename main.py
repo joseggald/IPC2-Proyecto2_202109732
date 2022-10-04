@@ -4,7 +4,6 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from time import sleep
 
-import jinja2
 from ListaSimple import Lista_simple
 from claseCI import ConfigInicial
 from claseClientes import Clientes
@@ -656,7 +655,7 @@ while fin==100:
                             stop=True 
                     
                 empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes.append(Clientes(dpiCli,nomCli,trans,cant))
-      
+                cola.append(nomCli)
                 os.system ("cls")
 
                 
@@ -668,7 +667,7 @@ while fin==100:
             if opManejo==6:
                 os.system ("cls")
                 print("**** IMPRESION COMPLETA ****")
-                sleep(4)
+                
                 simulador=1+simulador
                 os.system ("cls")
                 print("****** Simular actividad del punto de atención ******")
@@ -678,25 +677,27 @@ while fin==100:
                 archi1.write('  subgraph cluster_p{ \n')
                 archi1.write('      label="ATENCION AL CLIENTE"\n')
                 for b in range(len(escritorioAt)):
-                    archi1.write('      Escritorio'+str(b)+'[label= "Escritorio: '+str(escritorioAt[b].idEsc)+'" fillcolor="#4D92C5"]\n')
+                    archi1.write('      Escritorio'+str(b)+'[label= "Escritorio: '+str(escritorioAt[b].idEsc)+'" fillcolor="#C24848"]\n')
                     archi1.write('      edge[dir="both"]\n')
                     archi1.write('      cliente'+str(b)+'[label= "Nombre: '+str(escritorioAt[b].nomCliente)+' ", group=1]\n')
                     archi1.write('      Escritorio'+str(b)+'->cliente'+str(b)+'\n')
-                archi1.write('      Cola[label= "Cola Actual"]\n')
+                archi1.write('      Cola[label= "Cola Actual" fillcolor="#C27825"]\n')
                 archi1.write('      edge[dir="both"]\n')
                 for d in range(len(cola)):
                     if d==0:
-                        archi1.write('      clienteCola'+str(d)+'[label= "Nombre: ", group=1\n')
+                        archi1.write('      clienteCola'+str(d)+'[label= "Nombre: '+str(cola[d])+' ", group=1]\n')
                         archi1.write('      Cola->clienteCola'+str(d)+'\n')
                     else:
-                        archi1.write('      clienteCola'+str(d)+'[label= "Nombre: ", group=1\n')
+                        archi1.write('      clienteCola'+str(d)+'[label= "Nombre: '+str(cola[d])+' ", group=1]\n')
                         archi1.write('      clienteCola'+str(d-1)+'->clienteCola'+str(d)+'\n')
                 archi1.write('  }\n')
                 archi1.write('}\n')
                 archi1.close()
+                sleep(4)
                 os.system('dot -Tpng GraficaNo'+str(simulador)+'.dot -o GraficaNo'+str(simulador)+'.png')
-                os.system('cd ./GraficaNo'+str(simulador)+'.png')
-                os.startfile('GraficaNo'+str(simulador)+'.png')
+                
+                
+                
             if opManejo==7:
                 pass
 
