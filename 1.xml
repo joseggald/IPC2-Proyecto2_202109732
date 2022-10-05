@@ -10,46 +10,36 @@
 <nombre>Manuel Asturias</nombre>
 <listadoTransacciones>
 <transaccion idTransaccion="T1E1" cantidad="500"></transaccion>
-<transaccion idTransaccion="T2E1" cantidad="250"></transaccion>
-<transaccion idTransaccion="T4E1" cantidad="300"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002048">
 <nombre>Leo Marquez</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T7E1" cantidad="160"></transaccion>
 <transaccion idTransaccion="T2E1" cantidad="850"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002099">
 <nombre>Federico Wong</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T1E1" cantidad="220"></transaccion>
-<transaccion idTransaccion="T2E1" cantidad="700"></transaccion>
 <transaccion idTransaccion="T3E1" cantidad="100"></transaccion>
-<transaccion idTransaccion="T5E1" cantidad="200"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002002">
 <nombre>Jose Galdámez</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T5E1" cantidad="650"></transaccion>
+<transaccion idTransaccion="T4E1" cantidad="650"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002016">
 <nombre>Edgar Perez</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T3E1" cantidad="230"></transaccion>
+<transaccion idTransaccion="T5E1" cantidad="230"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002099">
 <nombre>Melman Gonzalez</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T1E1" cantidad="220"></transaccion>
-<transaccion idTransaccion="T7E1" cantidad="700"></transaccion>
-<transaccion idTransaccion="T3E1" cantidad="100"></transaccion>
-<transaccion idTransaccion="T5E1" cantidad="650"></transaccion>
-<transaccion idTransaccion="T2E1" cantidad="125"></transaccion>
+<transaccion idTransaccion="T6E1" cantidad="220"></transaccion>
 </listadoTransacciones>
 </cliente>
 </listadoClientes>
@@ -62,13 +52,13 @@
 <cliente dpi="2002001">
 <nombre>Marco Malcom</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T2E2" cantidad="100"></transaccion>
+<transaccion idTransaccion="T2E1" cantidad="100"></transaccion>
 </listadoTransacciones>
 </cliente>
 <cliente dpi="2002002">
 <nombre>Eduardo Gonzalez</nombre>
 <listadoTransacciones>
-<transaccion idTransaccion="T1E2" cantidad="900"></transaccion>
+<transaccion idTransaccion="T1E1" cantidad="900"></transaccion>
 </listadoTransacciones>
 </cliente>
 </listadoClientes>

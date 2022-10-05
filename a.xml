@@ -64,31 +64,31 @@
 		<listaTransacciones>
 			<transaccion id="T1E1">
 				<nombre>Transaccion 1 E1 </nombre>
-				<tiempoAtencion> 21 </tiempoAtencion>
+				<tiempoAtencion> 5 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T2E1">
 				<nombre>Transaccion 2 E1</nombre>
-				<tiempoAtencion> 5 </tiempoAtencion>
+				<tiempoAtencion> 10 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T3E1">
 				<nombre>Transaccion 3 E1 </nombre>
-				<tiempoAtencion> 10 </tiempoAtencion>
+				<tiempoAtencion> 15 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T4E1">
 				<nombre>Transaccion 4 E1</nombre>
-				<tiempoAtencion> 6 </tiempoAtencion>
+				<tiempoAtencion> 20 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T5E1">
 				<nombre>Transaccion 5 E1 </nombre>
-				<tiempoAtencion> 12 </tiempoAtencion>
+				<tiempoAtencion> 25 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T6E1">
 				<nombre>Transaccion 6 E1</nombre>
-				<tiempoAtencion> 18 </tiempoAtencion>
+				<tiempoAtencion> 30 </tiempoAtencion>
 			</transaccion>
 			<transaccion id="T7E1">
 				<nombre>Transaccion 7 E1</nombre>
-				<tiempoAtencion> 16 </tiempoAtencion>
+				<tiempoAtencion> 35 </tiempoAtencion>
 			</transaccion>
 		</listaTransacciones>
 	</empresa>

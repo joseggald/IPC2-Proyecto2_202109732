@@ -28,13 +28,13 @@ colaCliente=[]
 tiempoEscritorios=0
 tiempoColaProm=0
 tiempoColaTotal=0
-tiempoEscritoriosTotal=0   
+tiempoEscritoriosProm=0   
 contAt=0
 ca=0
 escritorioAt=[]
 clinteAt=[]
 cola=[]
-
+m=0
 
 while fin==100:
  
@@ -272,6 +272,7 @@ while fin==100:
                                                             pass
                                         for clientes in config:
                                             for listaClientes in clientes:
+                                                transaccionLista=[]
                                                 if listaClientes.tag == 'cliente':
                                                     idClientes=listaClientes.attrib['dpi']   
                                                     for datos in listaClientes:
@@ -281,9 +282,11 @@ while fin==100:
                                                             if trans.tag=='transaccion':
                                                                 idTrans=trans.attrib['idTransaccion']
                                                                 cantidadTrans=int(trans.attrib['cantidad'])
+                                                                
                                                                 for a in range(len(empresaLista[i].transacciones)):
                                                                     dato=empresaLista[i].transacciones[a]
                                                                     if empresaLista[i].transacciones[a].idTrans==idTrans:
+                                                                        
                                                                         transaccionLista.append(Transaccion(dato.idTrans,dato.nombre,dato.tiempo)) 
                                                                         cantLista.append(cantidadTrans)
                                                     clientesLista.append(Clientes(idClientes,nomCliente,transaccionLista,cantLista))
@@ -314,8 +317,7 @@ while fin==100:
         actualSeleccionEmpresa=1000
         actualSeleccionPunto=1000
         while(actualSeleccionEmpresa>len(empresaLista)):
-            tiempoColaTotal=0
-            tiempoColaProm=0 
+            
             ca=0
             os.system ("cls")
             print("*** Selección de empresa y punto de atención ***")
@@ -565,10 +567,10 @@ while fin==100:
                     contEscri=0
                     tiempoEscritorios=0
                     tiempoEscritoriosProm=0
+                    os.system ("cls")
                     if contAt==1:
                         tiempoColaProm=0
                         tiempoColaTotal=0
-                        os.system ("cls")
                         print("****** Atender Cliente ******") 
                         escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
                         clienteLen=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes
@@ -584,52 +586,62 @@ while fin==100:
                                     for l in range(len(parteTiempos[c].transacciones)):
                                         tiempoColaTotal=int(parteTiempos[c].transacciones[l].tiempo)+tiempoColaTotal
                                     contCola=1+contCola    
+                        
                         tiempoColaProm=tiempoColaTotal/contCola
-                        for c in range(len(parteTiempos)):
-                            for k in range(len(escritorioAt)):
-                                if parteTiempos[c].nombre==escritorioAt[k].nomCliente:
-                                    for l in range(len(parteTiempos[c].transacciones)):
-                                        tiempoEscritorios=int(parteTiempos[c].transacciones[l].tiempo)+tiempoEscritorios
+                        
+                        for p in range(len(parteTiempos)):
+                            for j in range(len(escritorioAt)):
+                                if parteTiempos[p].nombre==escritorioAt[j].nomCliente:
+                                    for l in range(len(parteTiempos[p].transacciones)):
+                                        tiempoEscritorios=int(parteTiempos[p].transacciones[l].tiempo)+tiempoEscritorios
                                     contEscri=contEscri+1
+                        
                         tiempoEscritoriosProm=tiempoEscritorios/contEscri
+                      
                     if contAt>1:  
-                        m=0
+                        
                         tiempoColaProm=0
                         tiempoColaTotal=0
-                        os.system ("cls")
+                        
                         print("****** Atender Cliente ******") 
                         escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
                         clienteLen=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes 
+                        ac=0
                         
+                        if len(escritorioAt)==1:
+                            if escritorioAt[0].nomCliente!="vacio":
+                                escritorioAt[0].nomCliente="vacio"    
                         if ca == len(escritorioAt):
                             ca=0
-                        if escritorioAt[ca].nomCliente!="vacio":
-                            escritorioAt[ca].nomCliente="vacio"
-                            m=1
-                        
                         for i in range(len(escritorioAt)):
                             if escritorioAt[i].nomCliente=="vacio" and len(cola)>0:
                                 escritorioAt[i].nomCliente=cola[0]
-                                
                                 cola.pop(0)
-                        if ca < len(escritorioAt): 
-                            ca=ca+1
                             
-                        
+                        if len(escritorioAt)>1:
+                            if ca < len(escritorioAt): 
+                                if escritorioAt[ca].nomCliente!="vacio":
+                                    escritorioAt[ca].nomCliente="vacio"
+                                ca=ca+1
+                         
+                                
                         if len(cola)>0:
                             for c in range(len(parteTiempos)):
                                 for k in range(len(cola)):
                                     if parteTiempos[c].nombre==cola[k]:
                                         for l in range(len(parteTiempos[c].transacciones)):
-                                            tiempoColaTotal=int(parteTiempos[c].transacciones[l].tiempo)+tiempoColaTotal
-                                        contCola=1+contCola
+                                                tiempoColaTotal=int(parteTiempos[c].transacciones[l].tiempo)+tiempoColaTotal
+                                        contCola=1+contCola    
+                                
                             tiempoColaProm=tiempoColaTotal/contCola 
-                            for c in range(len(parteTiempos)):
-                                for k in range(len(escritorioAt)):
-                                    if parteTiempos[c].nombre==escritorioAt[k].nomCliente:
-                                        for l in range(len(parteTiempos[c].transacciones)):
-                                            tiempoEscritorios=int(parteTiempos[c].transacciones[l].tiempo)+tiempoEscritorios
-                                        contEscri+=1
+                            
+                        for p in range(len(parteTiempos)):
+                            for j in range(len(escritorioAt)):
+                                if parteTiempos[p].nombre==escritorioAt[j].nomCliente:
+                                    for l in range(len(parteTiempos[p].transacciones)):
+                                        tiempoEscritorios=int(parteTiempos[p].transacciones[l].tiempo)+tiempoEscritorios
+                                    contEscri=contEscri+1
+                        if contEscri>0:    
                             tiempoEscritoriosProm=tiempoEscritorios/contEscri
                     contAt=contAt+1
                     print(" ")
@@ -651,7 +663,9 @@ while fin==100:
                     print("Tiempo promedio para que avance por cliente: "+str(tiempoColaProm))
                     print("Tiempo Total de los escritorios Atendiendo: "+str(tiempoEscritorios))
                     print("Tiempo promedio de los escritorios Atendiendo:"+str(tiempoEscritoriosProm))
-                    sleep(10)
+                    print(" ")
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
 
                 if opManejo==5:
                     uno=0
