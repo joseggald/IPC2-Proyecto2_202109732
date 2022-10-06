@@ -13,7 +13,8 @@ from clasePuntoAtencion import PuntoAtencion
 from claseTransaccion import Transaccion
 from escritoriosAtendiendo import EscritorioAt
 
-
+ina=[]
+act=[]
 simulador=0
 opConfig=0
 fin=100
@@ -59,26 +60,30 @@ while fin==100:
             print(" 5. Regresar Menu Principal")
             opConfig=int(input())
             if opConfig==1:
+                os.system ("cls")
+                ina.clear()
+                act.clear()
                 simulador=0
                 opConfig=0
                 fin=100
                 empresaData=Lista_simple()
-                empresaLista=[]
+                empresaLista.clear()
                 configData=Lista_simple()
-                configLista=[]
-                atencionCliente=[]
+                configLista.clear()
+                atencionCliente.clear()
                 actualSeleccionEmpresa=1000
                 actualSeleccionPunto=1000
-                colaCliente=[]
+                colaCliente.clear()
                 tiempoEscritorios=0
                 tiempoColaProm=0
                 tiempoColaTotal=0
-                tiempoEscritoriosTotal=0   
+                tiempoEscritoriosProm=0   
                 contAt=0
                 ca=0
-                escritorioAt=[]
-                clinteAt=[]
-                cola=[]
+                escritorioAt.clear()
+                clinteAt.clear()
+                cola.clear()
+                m=0
                 print("...")
                 sleep(2)
                 print("...")
@@ -86,7 +91,8 @@ while fin==100:
                 print("...")
                 sleep(2)
                 print("*** SISTEMA LIMPIO ***")
-                sleep(5)
+                print(" ")
+                input("presione cualquier tecla para regresar")
             if opConfig==2:
                 estInicial=False
                 os.system ("cls")
@@ -99,7 +105,6 @@ while fin==100:
                 root = tree.getroot()
                 for empresa in root:
                     idEmpresa = empresa.attrib['id']
-                    
                     puntosAtData=Lista_simple()
                     puntosAtLista=[]
                     transaccionData=Lista_simple()
@@ -130,6 +135,7 @@ while fin==100:
                                                 if escritorios.tag == 'encargado':
                                                     encargado=escritorios.text   
                                             escritoriosData.agregar_al_final(Escritorio(idEscritorio, identificacion,encargado,estInicial))
+                                            
                                             escritoriosLista.append(Escritorio(idEscritorio, identificacion,encargado,estInicial))
                                 puntosAtData.agregar_al_final(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosData,clientesData))   
                                 puntosAtLista.append(PuntoAtencion(idPA, nombrePA,direccionPA,escritoriosLista, clientesLista))                                                                       
@@ -382,7 +388,8 @@ while fin==100:
         sleep(1) 
         print("")
         print("*** PROCESO TERMINADO ***")
-        sleep(1) 
+        print(" ")
+        input("presione cualquier tecla para regresar")
         colaCliente=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes
         parteTiempos=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes
         contCola=0
@@ -403,18 +410,24 @@ while fin==100:
             for j in range(len(clienteLen)):
                 nomCl=clienteLen[j].nombre
                 cola.append(nomCl)
-        
+        for i in range(len(empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios)):
+                        if escritorio[i].estado==True:
+                            act.append(escritorio[i])
+                        if escritorio[i].estado==False:
+                            ina.append(escritorio[i])
     if op==3:
         if actualSeleccionEmpresa==1000 and actualSeleccionPunto==1000:
             print("*** ERROR ***")
             print("NO SE HA SELECCIONADO NINGUNA EMPRESA")
-            sleep(5)
+            print(" ")
+            input("presione cualquier tecla para regresar")
         else:
             stopOP=False
             while stopOP!=True:
                 opManejo=0
                 stop=False
                 while(stop!=True):
+                    
                     os.system ("cls")
                     print("*** Manejo de puntos de atención ***")
                     print("")
@@ -476,7 +489,8 @@ while fin==100:
                             print("Encargado:"+escritorio[i].encargado)
                             print(" ")
                     print("__________________________________________________________")
-                    sleep(20)
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
                     
                 if opManejo==2:
                     inactivos=[]
@@ -517,7 +531,8 @@ while fin==100:
                             print(" ")
                             print("ERROR, el escritorio que selecciono no se encuentra en activos o existe, recuerde que si esta en servicio no es posible desactivar.")
                             print(" ")
-                    sleep(10)
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
                 if opManejo==3:
                     activos=[]
                     stop=False
@@ -559,7 +574,8 @@ while fin==100:
                                     pass
                         if stop==False:
                             print("ERROR, el escritorio que selecciono no se encuentra en inactivos o existe.")
-                    sleep(10)
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
                 
                 if opManejo==4:
                     parteTiempos=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes  
@@ -572,6 +588,7 @@ while fin==100:
                         tiempoColaProm=0
                         tiempoColaTotal=0
                         print("****** Atender Cliente ******") 
+                        
                         escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
                         clienteLen=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes
                         for i in range(len(escritorioAt)):
@@ -604,6 +621,7 @@ while fin==100:
                         tiempoColaTotal=0
                         
                         print("****** Atender Cliente ******") 
+                  
                         escritorio=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].escritorios
                         clienteLen=empresaLista[actualSeleccionEmpresa].puntosAtencion[actualSeleccionPunto].clientes 
                         ac=0
@@ -665,6 +683,11 @@ while fin==100:
                     print("Tiempo promedio de los escritorios Atendiendo:"+str(tiempoEscritoriosProm))
                     print(" ")
                     print(" ")
+                    print("Escritorios Activos: "+str(len(act)))
+                    print("Escritorios Inactivos: "+str(len(ina)))
+                    print("Clientes en cola: "+str(len(cola)))
+                    print(" ")
+                    print(" ")
                     input("presione cualquier tecla para regresar")
 
                 if opManejo==5:
@@ -674,6 +697,7 @@ while fin==100:
                     stop=False
                     os.system ("cls")
                     print("****** Solicitud de atención ******") 
+                    
                     print("__________________________________________________________")
                     print(" ")
                     print("********************************************************")
@@ -734,7 +758,8 @@ while fin==100:
 
                     
                     print("Cliente en cola!")
-                    sleep(6)
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
                         
 
 
@@ -767,8 +792,10 @@ while fin==100:
                     archi1.write('  }\n')
                     archi1.write('}\n')
                     archi1.close()
-                    sleep(4)
+                    
                     os.system('dot -Tpng GraficaNo'+str(simulador)+'.dot -o GraficaNo'+str(simulador)+'.png')
+                    print(" ")
+                    input("presione cualquier tecla para regresar")
         
                 if opManejo==7:
                     stopOP=True
